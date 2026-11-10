@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Input Data TPS</title>
+</head>
+<body>
+    <h2>Form Input Data TPS</h2>
+
+    <!-- Tag form: Mengirim data ke berkas 'input.php' menggunakan metode POST dan memanggil fungsi validasi JS -->
+    <form action="input.php" method="post" onsubmit="return validateForm(event)">
+        
+        <!-- Field input untuk memasukkan Nama TPS -->
+        <label for="nama_tps">Nama TPS:</label><br>
+        <input type="text" id="nama_tps" name="nama_tps" required><br><br>
+
+        <!-- Field input untuk memasukkan Kategori TPS -->
+        <label for="kategori">Kategori:</label><br>
+        <input type="text" id="kategori" name="kategori" required><br><br>
+
+        <!-- Field input untuk memasukkan koordinat Latitude -->
+        <label for="lat">Latitude:</label><br>
+        <input type="text" id="lat" name="latitude" required><br><br>
+
+        <!-- Field input untuk memasukkan koordinat Longitude -->
+        <label for="long">Longitude:</label><br>
+        <input type="text" id="long" name="longitude" required><br><br>
+
+        <!-- Field input untuk memasukkan Tahun Berdiri (tipe number) -->
+        <label for="tahun_berdiri">Tahun Berdiri:</label><br>
+        <input type="number" id="tahun_berdiri" name="tahun_berdiri"><br><br>
+
+        <!-- Field area teks untuk memasukkan Alamat TPS -->
+        <label for="alamat">Alamat:</label><br>
+        <textarea id="alamat" name="alamat" rows="3" cols="30"></textarea><br><br>
+
+        <!-- Tombol submit untuk mengirimkan formulir -->
+        <input type="submit" value="Simpan Data">
+    </form>
+
+    <!-- Elemen paragraf khusus untuk menampilkan pesan peringatan jika validasi JS gagal -->
+    <p id="informasi" style="color: red;"></p>
+
+    <!-- Skrip JavaScript untuk validasi data angka pada koordinat -->
+    <script>
+        // Fungsi untuk menguji apakah Latitude dan Longitude bernilai angka sebelum form dikirim
+        function validateForm(event){
+            // 1. Mengambil nilai input dari elemen Latitude dan Longitude berdasarkan ID
+            let lat = document.getElementById("lat").value;
+            let long = document.getElementById("long").value;
+            let text = "";
+            
+            // 2. Mengecek menggunakan fungsi isNaN() apakah Latitude atau Longitude bukan angka
+            if(isNaN(lat) || isNaN(long)){
+                text = "Data Latitude dan Longitude harus berupa angka!";
+                
+                // 3. Membatalkan proses submit formulir jika data tidak valid
+                event.preventDefault(); 
+            }
+
+            // 4. Menampilkan teks pesan kesalahan ke dalam elemen paragraf bermarker id 'informasi'
+            document.getElementById("informasi").innerHTML = text;
+        }
+    </script>
+</body>
+</html>
